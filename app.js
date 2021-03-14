@@ -33,14 +33,20 @@ var financeController = (function () {
   };
 
   var data = {
-    allItems: {
+    items: {
       inc: [],
       exp: [],
     },
 
     totals: {
       inc: 0,
-      exo: 0,
+      exp: 0,
+    },
+  };
+
+  return {
+    addItem: function (type, desc, val) {
+      console.log("item added");
     },
   };
 })();
@@ -48,8 +54,9 @@ var financeController = (function () {
 var appController = (function (uiController, financeController) {
   var ctrlAddItem = function () {
     //oruulah ugugdul avna
-    console.log(uiController.getInput());
+    var input = uiController.getInput();
     //ugugdluudee sanhuugiin controller luu damjuulna
+    financeController.addItem(input.type, input.description, input.value);
     //ugugdliig tohiroh hesegt gargana
     //tusviig tootsoh
     //etssiin uldegdel tootsoog delgetsend gargana

@@ -16,6 +16,25 @@ var uiController = (function () {
     getDOMstrings: function () {
       return DOMstrings;
     },
+    addListItem: function (item, type) {
+      //inc, exp element beldene
+      var html, list;
+      if (type === "inc") {
+        list = ".income__list";
+        html =
+          '<div class="item clearfix" id="inc-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__delete">            <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div>        </div></div>';
+      } else {
+        list = ".expenses__list";
+        html =
+          '<div class="item clearfix" id="inc-%id%"><div class="item__description">$$DESCRIPTION$$</div><div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__delete">            <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div>        </div></div>';
+      }
+      //orlogo zarlagiin utguudiig replace eer hiij ugnu
+      html = html.replace("%id%", item.id);
+      html = html.replace("$$DESCRIPTION$$", item.description);
+      html = html.replace("$$VALUE$$", item.value);
+      //dom ruu hiij ugnu
+      document.querySelector(list).insertAdjacentHTML("beforeend", html);
+    },
   };
 })();
 
@@ -55,6 +74,8 @@ var financeController = (function () {
       else item = new Expense(id, desc, val);
 
       data.items[type].push(item);
+
+      return item;
     },
     data: function () {
       return data;
@@ -66,10 +87,17 @@ var appController = (function (uiController, financeController) {
   var ctrlAddItem = function () {
     //oruulah ugugdul avna
     var input = uiController.getInput();
+
     //ugugdluudee sanhuugiin controller luu damjuulna
-    financeController.addItem(input.type, input.description, input.value);
+    var item = financeController.addItem(
+      input.type,
+      input.description,
+      input.value
+    );
 
     //ugugdliig tohiroh hesegt gargana
+    uiController.addListItem(item, input.type);
+
     //tusviig tootsoh
     //etssiin uldegdel tootsoog delgetsend gargana
   };
@@ -94,3 +122,12 @@ var appController = (function (uiController, financeController) {
 })(uiController, financeController);
 
 appController.init();
+
+// var budget = document.querySelector(".budget__value");
+// budget.insertAdjacentHTML(
+//   "beforeend",
+//   '<div style="background-color:aqua; padding: 50px; color: white;"><p>Mai</p></div>'
+// );
+// document.querySelector(
+//   ".budget__value"
+// ) = '<div style="background-color:aqua; padding: 50px; color: white;"><p>Mai</p></div>';

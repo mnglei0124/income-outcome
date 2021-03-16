@@ -1,4 +1,2 @@
-def gichii(a):
-    for f in range(10):
-        print("al")
-gichii(3)
+for x in range(3000):
+    print('Mai llraa, Hi lalraa, TUI MAIII')
